@@ -2,8 +2,7 @@
   "name": "",
   "version": "1.0.0",
   "description": "",
-  "keywords": [
-  ],
+  "keywords": [],
   "homepage": "repo#readme",
   "bugs": {
     "url": "repo/issues"
@@ -31,6 +30,7 @@
     "zod": "3.24.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "5.0.0",
     "@types/node": "22.13.5",
     "@typescript-eslint/eslint-plugin": "6.21.0",

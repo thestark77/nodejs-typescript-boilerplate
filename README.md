@@ -1,13 +1,16 @@
-# Node.js TypeScript Boilerplate
+# Node.js TypeScript Express Boilerplate
 
-This is a boilerplate project for setting up a Node.js application with TypeScript, ESLint (Standard), and Prettier.
+This is a boilerplate project for setting up a Node.js application with TypeScript, ESLint (Standard), Prettier, validations with Zod, error handling and Express with CORS.
 
 ## Features
 
 - Node.js
 - TypeScript
+- Express with CORS
 - ESLint with Standard configuration
 - Prettier for code formatting
+- Validations with Zod
+- Error handling
 
 ## Getting Started
 
@@ -19,21 +22,24 @@ This is a boilerplate project for setting up a Node.js application with TypeScri
 ### Installation
 
 1. Clone the repository:
-  ```sh
-  git clone https://github.com/your-username/nodejs-typescript-boilerplate.git
-  cd nodejs-typescript-boilerplate
-  ```
+
+```sh
+git clone https://github.com/your-username/nodejs-typescript-boilerplate.git
+cd nodejs-typescript-boilerplate
+```
 
 2. Install dependencies:
-  ```sh
-  npm install
-  # or
-  yarn install
-  ```
+
+```sh
+npm install
+# or
+yarn install
+```
 
 ### Running the Project
 
 To start the development server, run:
+
 ```sh
 npm run dev
 # or
@@ -43,6 +49,7 @@ yarn dev
 ### Building the Project
 
 To build the project, run:
+
 ```sh
 npm run build
 # or
@@ -52,6 +59,7 @@ yarn build
 ### Linting and Formatting
 
 To lint the code, run:
+
 ```sh
 npm run lint
 # or
@@ -59,6 +67,7 @@ yarn lint
 ```
 
 To format the code, run:
+
 ```sh
 npm run format
 # or

@@ -1,19 +1,18 @@
 import express from 'express'
-import { authRouter } from './routes/auth.js'
-import { tasksRouter } from './routes/tasks.js'
+import type { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
-import dbClient from './db/client.js'
-import { handleError } from './utils/errorHandler.js'
-import { PORT } from './utils/config.js'
+import { handleError } from './libs/errorHandler'
+import { PORT } from './config'
+
 
 const app = express()
-const appPort = PORT ?? 3000
+const appPort = PORT
 app.use(express.json())
 app.use(cors())
-dbClient.sync()
 
-app.use('/auth', authRouter)
-app.use('/tasks', tasksRouter)
+// Routes
+// app.use('/auth', authRouter)
+// app.use('/tasks', tasksRouter)
 
 // Not found
 app.use((req, res, next) => {
@@ -21,11 +20,14 @@ app.use((req, res, next) => {
 })
 
 // Error handling
-app.use(async (err, req, res, next) => {
-  const { status, ...formState } = handleError({ error: err })
-  res.status(status).json(formState)
-})
+app.use(
+  async (error: unknown, req: Request, res: Response, next: NextFunction) => {
+    const { status, ...formState } = await handleError({ error })
+    res.status(status).json(formState)
+  }
+)
 
+// Start server
 app.listen(appPort, () => {
   console.log(`Server running on port ${appPort}`)
 })
