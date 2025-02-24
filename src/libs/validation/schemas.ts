@@ -1,5 +1,5 @@
 // import { z } from 'zod'
-// import { ValidationFieldsError } from './errorHandler'
+// import { ValidationFieldsError } from '@/libs/errorHandler'
 
 // User schemas
 // const emailSchema = z.string().email()

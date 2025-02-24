@@ -1,5 +1,5 @@
-import { formatDateToLocal } from '../utils/utils'
-import type { FormState } from './definitions'
+import { formatDateToLocal } from '@/utils/utils'
+import type { FormState } from '@/libs/definitions'
 
 type IErrorHandler = {
   error: unknown
