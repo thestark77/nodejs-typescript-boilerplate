@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
+    "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
     "sourceMap": true,
@@ -17,6 +18,10 @@
       "@/controllers/*": ["./src/controllers/*"],
       "@/routes/*": ["./src/routes/*"]
     }
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

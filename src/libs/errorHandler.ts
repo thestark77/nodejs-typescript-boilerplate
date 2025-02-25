@@ -1,18 +1,11 @@
 import { formatDateToLocal } from '@/utils/utils'
 import type { FormState } from '@/libs/definitions'
 
-type IErrorHandler = {
-  error: unknown
-  message?: string
-}
-
-type IErrorHandlerReturn<Fields> = FormState<Fields> & { status: number }
-
 export async function handleError<Fields>({
   error,
   message
-}: IErrorHandler): Promise<IErrorHandlerReturn<Fields>> {
-  const formState: IErrorHandlerReturn<Fields> = {
+}: IErrorHandler): Promise<FormState<Fields>> {
+  const formState: FormState<Fields> = {
     status: 500,
     message: message ?? 'Unknown error'
   }
@@ -107,4 +100,10 @@ export class NotFoundError extends Error {
     this.name = errorsDictionary.notFound.name
     this.description = errorsDictionary.notFound.description
   }
+}
+
+// ============================= Definitions ============================= //
+type IErrorHandler = {
+  error: unknown
+  message?: string
 }

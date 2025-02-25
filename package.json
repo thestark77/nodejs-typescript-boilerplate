@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
@@ -27,11 +27,16 @@
     "cors": "2.8.5",
     "dotenv": "16.4.7",
     "express": "4.21.2",
+    "express-session": "1.18.1",
+    "google-auth-library": "9.15.1",
+    "morgan": "1.10.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
+    "@types/cors": "2.8.17",
     "@types/express": "5.0.0",
+    "@types/express-session": "1.18.1",
+    "@types/morgan": "1.9.9",
     "@types/node": "22.13.5",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "eslint": "8.57.1",
@@ -41,8 +46,8 @@
     "eslint-plugin-n": "16.6.2",
     "eslint-plugin-promise": "6.6.0",
     "nodemon": "3.1.9",
-    "prettier": "^3.5.2",
-    "ts-node": "10.9.2",
+    "prettier": "3.5.2",
+    "tsx": "4.19.3",
     "typescript": "5.7.3"
   }
 }

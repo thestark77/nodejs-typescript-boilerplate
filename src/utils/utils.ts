@@ -1,3 +1,25 @@
+import type { FormState } from '@/libs/definitions'
+import type { Response } from 'express'
+
+export function sendResponse<Fields = null, Data = null>({
+  formState,
+  status,
+  res
+}: ISendSuccessResponse<Fields, Data>): Response<FormState<Fields, Data>> {
+  return res.status(status).json(formState)
+}
+
+export function getInitialFormState<Fields, Data = undefined>(
+  data?: Data
+): FormState<Fields, Data> {
+  const defaultFormState: FormState<Fields, Data> = {
+    data,
+    status: 200
+  }
+
+  return defaultFormState
+}
+
 export function formatDateToLocal(
   dateStr: Date | string | number,
   locale: string = 'es-MX'
@@ -27,4 +49,10 @@ type FormatDateToLocal = {
   date: string
   time: string
   dateTime: string
+}
+
+type ISendSuccessResponse<Fields, Data = null> = {
+  formState: FormState<Fields, Data>
+  status: number
+  res: Response
 }

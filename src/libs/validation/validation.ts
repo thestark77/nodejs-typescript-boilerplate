@@ -5,14 +5,12 @@ import { ValidationFieldsError } from '@/libs/errorHandler'
 All validations performed by this function throw an error if the field is not valid. THIS ERROR MUST BE HANDLED BY THE CONTROLLER inside a try/catch block.
 */
 
-export function validateObject<T>({
-  zodSchema,
-  object
-}: IValidateObject<T>): T {
-  const zodValidation = zodSchema.safeParse(object)
+export function validateObject<T>({ schema, object }: IValidateObject<T>): T {
+  const zodValidation = schema.safeParse(object)
 
   if (!zodValidation.success) {
     throw new ValidationFieldsError({
+      status: 400,
       errors: zodValidation.error.flatten().fieldErrors
     })
   }
@@ -23,6 +21,6 @@ export function validateObject<T>({
 // ============================= Definitions ============================= //
 
 type IValidateObject<T> = {
-  zodSchema: ZodSchema<T>
+  schema: ZodSchema<T>
   object: T
 }
