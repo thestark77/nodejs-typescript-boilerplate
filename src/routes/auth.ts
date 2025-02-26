@@ -1,11 +1,8 @@
 import { Router } from 'express'
-import { login, logout } from '@/controllers/auth'
-import { getLoginUrl } from '@/auth.config'
+import { login, logout, getLoginUrl } from '@/controllers/auth'
 const authRouter = Router()
 
-authRouter.get('/google', (req, res) => {
-  res.redirect(getLoginUrl())
-})
+authRouter.get('/google', getLoginUrl)
 
 authRouter.get('/google/callback', login)
 

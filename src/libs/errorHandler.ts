@@ -55,7 +55,7 @@ export async function handleError<Fields>({
   return formState
 }
 
-const errorsDictionary = {
+export const errorsDictionary = {
   auth: {
     name: 'AuthError',
     description: 'Error on authentication'

@@ -4,7 +4,14 @@ import {
   GOOGLE_CLIENT_SECRET,
   GOOGLE_REDIRECT_URI
 } from '@/config'
-import { AuthError } from './libs/errorHandler'
+import { AuthError, errorsDictionary } from '@/libs/errorHandler'
+
+export const AUTH_URLS = {
+  LOGIN_RETURN_URL: '/',
+  LOGIN_ERROR_RETURN_URL: `/login?errorCode=${errorsDictionary.auth.name}`,
+  LOGOUT_RETURN_URL: '/login',
+  LOGOUT_ERROR_RETURN_URL: '/login'
+}
 
 const client = new OAuth2Client({
   clientId: GOOGLE_CLIENT_ID,
@@ -12,10 +19,10 @@ const client = new OAuth2Client({
   redirectUri: GOOGLE_REDIRECT_URI
 })
 
-export function getLoginUrl(): string {
+export function getGoogleLoginUrl(state?: string): string {
   return client.generateAuthUrl({
     access_type: 'offline',
-    // prompt: 'consent',
+    state,
     scope: ['openid', 'email', 'profile']
   })
 }
@@ -53,4 +60,11 @@ export type IUserInfo = {
   name: string
   email: string
   picture: string
+}
+
+declare module 'express-session' {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+  interface SessionData {
+    user?: IUserInfo
+  }
 }

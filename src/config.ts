@@ -5,6 +5,7 @@ dotenv.config()
 const envVariable = z.string().min(1).max(255)
 
 const envSSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production']),
   PORT: z.coerce.number().min(1).default(3000),
   SESSION_SECRET: envVariable,
   GOOGLE_CLIENT_ID: envVariable,
@@ -20,6 +21,7 @@ if (!success) {
 }
 
 export const {
+  NODE_ENV,
   PORT,
   SESSION_SECRET,
   GOOGLE_CLIENT_ID,

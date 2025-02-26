@@ -1,34 +1,56 @@
 import type { Request, Response } from 'express'
-import { loginWithGoogle, type IUserInfo } from '@/auth.config'
-import type { FormState } from '@/libs/definitions'
+import { AUTH_URLS, getGoogleLoginUrl, loginWithGoogle } from '@/auth.config'
 import { validateObject } from '@/libs/validation/validation'
-import { authCodeSchema } from '@/libs/validation/schemas'
-import { getInitialFormState, sendResponse } from '@/utils/utils'
+import { stringSchema } from '@/libs/validation/schemas'
 import { handleError } from '@/libs/errorHandler'
 
-export async function login(req: Request, res: Response): Promise<void> {
-  let formState: FormState<undefined, IUserInfo> = getInitialFormState()
+export async function getLoginUrl(req: Request, res: Response): Promise<void> {
   try {
-    const { code } = req.query
+    const loginUrl = getGoogleLoginUrl()
+    res.redirect(loginUrl)
+  } catch (error) {
+    await handleError({
+      error,
+      message: 'Error on get login url'
+    })
+  }
+}
 
+export async function login(req: Request, res: Response): Promise<void> {
+  const { code } = req.query
+
+  try {
     const validatedCode = validateObject({
-      schema: authCodeSchema,
+      schema: stringSchema,
       object: code as string
     })
 
-    formState.data = await loginWithGoogle(validatedCode)
+    req.session.user = await loginWithGoogle(validatedCode)
+    res.redirect(AUTH_URLS.LOGIN_RETURN_URL)
   } catch (error) {
-    formState = await handleError({ error, message: 'Login error' })
-  } finally {
-    sendResponse({ formState, status: 200, res })
+    await handleError({
+      error,
+      message: 'Error on login callback'
+    })
+    res.redirect(AUTH_URLS.LOGIN_ERROR_RETURN_URL)
   }
 }
 
 export async function logout(req: Request, res: Response): Promise<void> {
-  req.session.destroy((error) => {
-    if (error) {
-      const formState = handleError({ error, message: 'Logout error' })
-      return res.status(500).json(formState)
-    }
-  })
+  try {
+    req.session.destroy((error) => {
+      if (error) {
+        const formState = handleError({ error, message: 'Logout error' })
+        return res.status(500).json(formState)
+      }
+    })
+
+    res.redirect(AUTH_URLS.LOGOUT_RETURN_URL)
+  } catch (error) {
+    await handleError({
+      error,
+      message: 'Error on logout'
+    })
+    res.redirect(AUTH_URLS.LOGOUT_ERROR_RETURN_URL)
+  }
 }
